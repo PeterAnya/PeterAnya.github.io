@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title: Zapier Webhook API
+  version: 1.0.0
+servers:
+  - url: 'https://hooks.zapier.com'
+paths:
+  /hooks/catch/19198568/2onvvgf/:
+    post:
+      summary: Send data to Zapier webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notion_title:
+                  type: string
+                  example: 代持慶
+                notion_content:
+                  type: string
+                  example: 嘿嘿嘿嘿嘿
+              required:
+                - notion_title
+                - notion_content
+      responses:
+        '200':
+          description: Successful response
