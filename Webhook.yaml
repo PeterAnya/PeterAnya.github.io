@@ -7,7 +7,7 @@ info:
 servers:
   - url: 'https://hooks.zapier.com'
 paths:
-  /hooks/catch/19198568/2onvvgf/:
+  /hooks/catch/19210296/2bye9h1/:
     post:
       summary: Send data to Zapier webhook
       requestBody:
