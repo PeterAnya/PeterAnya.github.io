@@ -2,6 +2,8 @@ openapi: 3.0.0
 info:
   title: Zapier Webhook API
   version: 1.0.0
+    description: Equip GPTs with the ability to run thousands of actions via Zapier.
+    x-openai-verification-token: 703dcca4c2e24c5ea5e2c717eba11029
 servers:
   - url: 'https://hooks.zapier.com'
 paths:
@@ -17,10 +19,10 @@ paths:
               properties:
                 notion_title:
                   type: string
-                  example: 代持慶
+                  example: 隞����
                 notion_content:
                   type: string
-                  example: 嘿嘿嘿嘿嘿
+                  example: �燵�燵�燵�燵�燵
               required:
                 - notion_title
                 - notion_content
