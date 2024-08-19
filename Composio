@@ -1,0 +1,45 @@
+# 步驟 2：導入基本包並配置 OpenAI 客戶端
+from openai import OpenAI
+from composio_openai import ComposioToolSet, Action, App
+
+# 初始化 OpenAI 客戶端
+openai_client = OpenAI()
+
+# 初始化 Composio 工具集
+composio_toolset = ComposioToolSet()
+
+# 步驟 3：通過 Composio 獲取所有 GitHub 工具
+actions = composio_toolset.getActions(actions=[Action.GITHUB_STAR_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER])
+
+# 步驟 4：通過 OpenAI 助手 API 執行任務
+my_task = "Star a repo SamparkAI/composio on GitHub"
+
+# 定義助手的指令
+assistant_instruction = "You are a super intelligent personal assistant"
+
+# 準備助手
+assistant = openai_client.beta.assistants.create(
+    name="Personal Assistant",
+    instructions=assistant_instruction,
+    model="gpt-4-turbo-preview",
+    tools=actions,  # 使用之前獲取的 GitHub 操作
+)
+
+# 創建一個新對話線程
+thread = openai_client.beta.threads.create()
+
+# 添加用戶消息到線程中
+message = openai_client.beta.threads.messages.create(thread_id=thread.id, role="user", content=my_task)
+
+# 執行助手操作
+run = openai_client.beta.threads.runs.create(thread_id=thread.id, assistant_id=assistant.id)
+
+# 步驟 5：處理工具調用並檢查響應
+response_after_tool_calls = composio_toolset.wait_and_handle_assistant_tool_calls(
+    client=openai_client,
+    run=run,
+    thread=thread,
+)
+
+# 輸出結果
+print(response_after_tool_calls)
